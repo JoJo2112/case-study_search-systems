@@ -1,0 +1,28 @@
+services:
+  elasticsearch:
+    image: 'elastic/elasticsearch:9.4.2'
+    ports:
+      - '9200:9200'
+    environment:
+      - discovery.type=single-node
+      - xpack.security.http.ssl.enabled=false
+      - ELASTIC_PASSWORD=xyz
+      - bootstrap.memory_lock=true
+    volumes:
+      - 'elasticsearch-data:/usr/share/elasticsearch/data'
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65535
+        hard: 65535
+
+volumes:
+  elasticsearch-data:
+    driver: local

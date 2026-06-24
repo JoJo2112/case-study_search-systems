@@ -1,0 +1,14 @@
+services:
+  meilisearch:
+    image: getmeili/meilisearch:v1.47.0
+    ports:
+      - '7700:7700'
+    environment:
+      - MEILI_MASTER_KEY=xyz
+    volumes:
+      - ./meili_data:/meili_data
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4g

@@ -1,0 +1,24 @@
+# Large raw input dump
+/dewiki-*.xml
+# Raw corpus the datasets are generated from (~2 GB); regenerate datasets with generate_datasets.py
+/corpus.jsonl
+
+# Local search engine data
+/meilisearch/meili_data/
+/typesense/typesense-data/
+
+# Python cache and virtual envs
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# k6 load test results
+/testing/k6/results/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+

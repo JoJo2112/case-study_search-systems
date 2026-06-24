@@ -1,0 +1,2 @@
+*.jsonl filter=lfs diff=lfs merge=lfs -text
+*.elasticsearch_bulk.json filter=lfs diff=lfs merge=lfs -text

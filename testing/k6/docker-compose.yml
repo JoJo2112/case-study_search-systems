@@ -1,0 +1,55 @@
+x-k6: &k6
+  image: grafana/k6:1.7.1
+  user: '0:0'
+  volumes:
+    - ./scripts:/scripts
+    - ./data:/data
+    - ./results:/results
+    - ../../data:/testdata:ro
+
+x-k6-env: &k6-env
+  K6_WEB_DASHBOARD: 'true'
+  K6_WEB_DASHBOARD_PERIOD: '1s'
+
+services:
+  typesense-ingest:
+    <<: *k6
+    environment:
+      <<: *k6-env
+      K6_WEB_DASHBOARD_EXPORT: '/results/typesense-ingest.html'
+    command: run --out json=/results/typesense-ingest.json /scripts/typesense-ingest.js
+
+  typesense-search:
+    <<: *k6
+    environment:
+      <<: *k6-env
+      K6_WEB_DASHBOARD_EXPORT: '/results/typesense-search.html'
+    command: run --out json=/results/typesense-search.json /scripts/typesense-search.js
+
+  meilisearch-ingest:
+    <<: *k6
+    environment:
+      <<: *k6-env
+      K6_WEB_DASHBOARD_EXPORT: '/results/meilisearch-ingest.html'
+    command: run --out json=/results/meilisearch-ingest.json /scripts/meilisearch-ingest.js
+
+  meilisearch-search:
+    <<: *k6
+    environment:
+      <<: *k6-env
+      K6_WEB_DASHBOARD_EXPORT: '/results/meilisearch-search.html'
+    command: run --out json=/results/meilisearch-search.json /scripts/meilisearch-search.js
+
+  elasticsearch-ingest:
+    <<: *k6
+    environment:
+      <<: *k6-env
+      K6_WEB_DASHBOARD_EXPORT: '/results/elasticsearch-ingest.html'
+    command: run --out json=/results/elasticsearch-ingest.json /scripts/elasticsearch-ingest.js
+
+  elasticsearch-search:
+    <<: *k6
+    environment:
+      <<: *k6-env
+      K6_WEB_DASHBOARD_EXPORT: '/results/elasticsearch-search.html'
+    command: run --out json=/results/elasticsearch-search.json /scripts/elasticsearch-search.js
